@@ -1,8 +1,9 @@
-import "@/styles/globals.scss";
+import Login from "@/components/login";
 
-export default async function Home() {
-  let data = await fetch("http://localhost:3000/api/python");
-  const result = await data.text();
-  console.log(result);
-  return <div>dd</div>;
+export default function Home() {
+  return (
+    <>
+      <Login />
+    </>
+  );
 }
