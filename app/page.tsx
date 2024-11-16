@@ -1,10 +1,9 @@
-import Login from "@/components/login";
+import Pages from "../Components/Pages";
 
-export default function Home() {
+export default function App() {
   return (
     <>
-      <>ddd</>
-      <Login />
+      <Pages />
     </>
   );
 }

@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface InputData {
   userName: string;
   password: string;
 }
 
-const InstagramLoginForm: React.FC = () => {
+const Login: React.FC = () => {
+  const router = useRouter();
   const [inputData, setInputData] = useState<InputData>({
     userName: "",
     password: "",
@@ -37,7 +39,7 @@ const InstagramLoginForm: React.FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Server response:", data);
+        if (data) router.push("/getContent");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -46,8 +48,6 @@ const InstagramLoginForm: React.FC = () => {
 
   const handleLogin = () => {
     if (validate()) sendInputData(inputData);
-    console.log("Logging in with:", inputData);
-    // 로그인 처리 로직 추가
   };
 
   const validate = () => {
@@ -86,4 +86,4 @@ const InstagramLoginForm: React.FC = () => {
   );
 };
 
-export default InstagramLoginForm;
+export default Login;
