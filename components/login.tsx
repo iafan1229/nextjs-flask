@@ -45,8 +45,7 @@ const InstagramLoginForm: React.FC = () => {
   };
 
   const handleLogin = () => {
-    validate();
-    sendInputData(inputData);
+    if (validate()) sendInputData(inputData);
     console.log("Logging in with:", inputData);
     // 로그인 처리 로직 추가
   };
@@ -58,7 +57,8 @@ const InstagramLoginForm: React.FC = () => {
     if (passwordRegex.test(inputData.password)) {
       return true;
     } else {
-      return alert("비밀번호는 영문 숫자 특수문자 포함하세요");
+      alert("비밀번호는 영문 숫자 특수문자 포함하세요");
+      return false;
     }
   };
 

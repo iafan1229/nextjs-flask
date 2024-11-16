@@ -1,0 +1,6 @@
+2024-11-16 16:04:33,799 - index - DEBUG - This is a debug message
+2024-11-16 16:04:33,799 - index - INFO - This is an info message
+2024-11-16 16:04:33,799 - index - ERROR - This is an error message
+2024-11-16 16:04:33,813 - werkzeug - WARNING -  * Debugger is active!
+2024-11-16 16:04:33,817 - werkzeug - INFO -  * Debugger PIN: 100-133-973
+2024-11-16 16:04:51,259 - werkzeug - INFO - 127.0.0.1 - - [16/Nov/2024 16:04:51] "POST /api/login HTTP/1.1" 200 -

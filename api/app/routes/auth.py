@@ -5,8 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from flask import Blueprint, request, jsonify
 from selenium.webdriver.common.action_chains import ActionChains
-from app.driver import start_driver
-import time
+from app.driver import start_driver, stop_driver
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 auth = Blueprint('auth', __name__)
@@ -45,24 +45,30 @@ def instagramLogin(username, password, driver):
             .click(login_button)\
             .perform()
 
-        time.sleep(10)  
-        print("로그인 성공")
-        loadUserPage(driver)
+        print("로그인 성공! 내비게이션 바가 로드되었습니다.")
+
+        loadUserPage(driver, username)
         return jsonify({'status': 'success', 'message': 'Logged in successfully'}), 200
 
     except Exception as e:
-        print("로그인 실패:", str(e))
+        print("로그인 실패:dd", str(e))
+        stop_driver()
         return jsonify({'status': 'fail', 'message': 'Login failed', 'error': str(e)}), 500
     
-def loadUserPage(driver):
-    # 내비게이션 바 로드 대기
+def loadUserPage(driver, username):
     try:
-        print('네비 로딩중')
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'nav'))
-        )
-        print("로그인 성공! 내비게이션 바가 로드되었습니다.")
-        return jsonify({'status': 'success', 'message': '로그인 성공!'}), 200
+        
+        url = f'/{username}/?next=%2F'
+        # 사진첩으로 이동 버튼 찾기 (동적으로 로드되므로 대기 필요)
+        login_button = WebDriverWait(driver, 10).until(
+          EC.element_to_be_clickable((By.CSS_SELECTOR, f'a[href="{url}"]')))
+        driver.execute_script("arguments[0].click();",login_button)
+
+        # login_button.click()
+        print("사진첩으로 이동 성공!")
+
+        return jsonify({'status': 'success', 'message': '로그인 후 사진첩 들어가기 성공!'}), 200
+
     except Exception as e:
-        print("내비게이션 바를 찾지 못했습니다:", str(e))
-        return jsonify({'status': 'fail', 'message': '로그인 후 내비게이션 바를 찾지 못했습니다.'}), 401
+        print("오류 발생:", str(e))
+        return jsonify({'status': 'fail', 'message': '로그인 후 내비게이션 바를 찾지 못했습니다.', 'error': str(e)}), 401

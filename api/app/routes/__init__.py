@@ -8,10 +8,10 @@ def create_app():
 
     # 라우트 등록
     from .auth import auth as auth_blueprint
-    # from .routes.main import main as main_blueprint
+    from .getContent import getContent as getContent_blueprint
 
     app.register_blueprint(auth_blueprint)
-    # app.register_blueprint(main_blueprint)
+    app.register_blueprint(getContent_blueprint)
 
     return app
 
