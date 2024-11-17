@@ -51,11 +51,15 @@ def scrape_post_data(driver, url, n):
     except AttributeError:
         likes = 'No likes'
     
-    # print(f"Post {n}: Likes: {likes}\nImage URL: {img_url}\n")
+
+    try:
+        date = soup.select_one('.x1yztbdb time')
+    except AttributeError:
+        date = ''
     
     # 이미지 저장
     # save_image(img_url, n)
-    return {'likes': likes, 'img_url': img_url}
+    return {'likes': likes, 'img_url': img_url, 'date': date}
 
 
 @getContent.route('/api/getContent', methods=['GET'])
