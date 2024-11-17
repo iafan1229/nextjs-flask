@@ -1,6 +1,4 @@
 from app.routes import create_app
-import logging
-from logging.config import dictConfig
 
 
 app = create_app()
@@ -9,6 +7,10 @@ app = create_app()
 if __name__ == '__main__':
     app.debug = True
     app.run()
+
+import logging
+from logging.config import dictConfig
+
 
 logging_config = {
     'version': 1,

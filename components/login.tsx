@@ -47,7 +47,6 @@ const Login = ({
       .then((data) => {
         if (data) {
           setUserId(data?.userId);
-          router.push(`/getcontent`);
         }
       })
       .catch((error) => {

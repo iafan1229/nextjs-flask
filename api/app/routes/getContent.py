@@ -8,7 +8,8 @@ import time
 getContent = Blueprint('getContent', __name__)
 
 def scroll_and_collect_posts(driver, user):
-    driver.get(f'https://www.instagram.cp.kkl/{user}/')
+    url = f'/{user}/?next=%2F'
+    driver.get(f'https://www.instagram.com//{user}/')
     time.sleep(5)
     
     # 페이지 스크롤을 통해 모든 게시물 로드
@@ -17,7 +18,7 @@ def scroll_and_collect_posts(driver, user):
 
     while True:
         soup = BeautifulSoup(driver.page_source, 'html.parser')
-        new_posts = soup.select('div._aagw a')
+        new_posts = soup.select('div._ac7v a')
         for post in new_posts:
             posts.add('https://www.instagram.com' + post['href'])
         
@@ -39,14 +40,14 @@ def scrape_post_data(driver, url, n):
     
     # 게시물 이미지 URL 추출
     try:
-        img_url = soup.select_one('.x5yr21d img')['src']
+        img_url = soup.select_one('._aagu._aato img')['src']
     except TypeError:
         print(f"No image found in {url}")
         return None
     
     # 좋아요 수 추출
     try:
-        likes = soup.select_one('div._aacl span').text
+        likes = soup.select_one('section.x12nagc span.x1lliihq').text
     except AttributeError:
         likes = 'No likes'
     
@@ -58,7 +59,7 @@ def scrape_post_data(driver, url, n):
 
 
 @getContent.route('/api/getContent', methods=['GET'])
-def getContent():
+def Content():
     driver = start_driver()
     
     try:
@@ -67,13 +68,12 @@ def getContent():
             user = query  # 크롤링할 유저명 입력
             post_urls = scroll_and_collect_posts(driver, user)
             
-            # print(f"Found {len(post_urls)} posts.")
-            dataSet = set()
-            for n, url in enumerate(post_urls, 1):
+            dataSet = list()
+            for n, url in enumerate(post_urls):
                 eachData = scrape_post_data(driver, url, n)
-                dataSet.set(eachData)
+                dataSet.append(eachData)
                 time.sleep(2)  # 과부하 방지를 위해 대기 시간 추가
-            return list(dataSet)
+            return (dataSet)
     
     except Exception as e:
         stop_driver()

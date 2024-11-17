@@ -48,7 +48,7 @@ def instagramLogin(username, password, driver):
         print("로그인 성공! 내비게이션 바가 로드되었습니다.")
 
         loadUserPage(driver, username)
-        return jsonify({'status': 'success', 'message': 'Logged in successfully'}), 200
+        return jsonify({'status': 'success', 'userId': username}), 200
 
     except Exception as e:
         stop_driver()
@@ -62,11 +62,10 @@ def loadUserPage(driver, username):
         login_button = WebDriverWait(driver, 10).until(
           EC.element_to_be_clickable((By.CSS_SELECTOR, f'a[href="{url}"]')))
         driver.execute_script("arguments[0].click();",login_button)
-
         login_button.click()
         print("사진첩으로 이동 성공!")
 
-        return jsonify({'status': 'success', 'userId': username}), 200
+        
 
 
     except Exception as e:
