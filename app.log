@@ -1,7 +1,2 @@
-2024-11-16 17:04:29,638 - index - DEBUG - This is a debug message
-2024-11-16 17:04:29,638 - index - INFO - This is an info message
-2024-11-16 17:04:29,638 - index - ERROR - This is an error message
-2024-11-16 17:04:29,649 - werkzeug - WARNING -  * Debugger is active!
-2024-11-16 17:04:29,653 - werkzeug - INFO -  * Debugger PIN: 100-133-973
-2024-11-16 17:04:45,417 - werkzeug - INFO - 127.0.0.1 - - [16/Nov/2024 17:04:45] "POST /api/login HTTP/1.1" 200 -
-2024-11-16 17:04:45,642 - werkzeug - INFO - 127.0.0.1 - - [16/Nov/2024 17:04:45] "[35m[1mGET /api/getContent HTTP/1.1[0m" 500 -
+2024-11-17 12:55:23,339 - werkzeug - WARNING -  * Debugger is active!
+2024-11-17 12:55:23,344 - werkzeug - INFO -  * Debugger PIN: 100-133-973

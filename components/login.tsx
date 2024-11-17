@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface InputData {
@@ -8,7 +8,13 @@ interface InputData {
   password: string;
 }
 
-const Login: React.FC = () => {
+const Login = ({
+  userId,
+  setUserId,
+}: {
+  userId?: string;
+  setUserId: React.Dispatch<SetStateAction<string | undefined>>;
+}) => {
   const router = useRouter();
   const [inputData, setInputData] = useState<InputData>({
     userName: "",
@@ -39,7 +45,10 @@ const Login: React.FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data) router.push("/getContent");
+        if (data) {
+          setUserId(data?.userId);
+          router.push(`/getcontent`);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);

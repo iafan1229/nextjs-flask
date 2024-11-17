@@ -11,7 +11,7 @@ def create_app():
     from .getContent import getContent as getContent_blueprint
 
     app.register_blueprint(auth_blueprint)
-    app.register_blueprint(getContent_blueprint)
+    # app.register_blueprint(getContent_blueprint)
 
     return app
 

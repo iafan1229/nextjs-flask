@@ -66,7 +66,8 @@ def loadUserPage(driver, username):
         login_button.click()
         print("사진첩으로 이동 성공!")
 
-        return jsonify({'status': 'success', 'message': '로그인 후 사진첩 들어가기 성공!'}), 200
+        return jsonify({'status': 'success', 'userId': username}), 200
+
 
     except Exception as e:
         print("오류 발생:", str(e))
