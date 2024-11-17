@@ -1,84 +1,48 @@
-from flask import Flask, abort, request, Blueprint, jsonify
+from flask import Flask, Blueprint, jsonify
 from app.driver import start_driver, stop_driver
 from selenium.webdriver.common.by import By
+import re
 from bs4 import BeautifulSoup
 import time
 
-
 getContent = Blueprint('getContent', __name__)
 
-def scroll_and_collect_posts(driver, user):
-    driver.get(f'https://www.instagram.cp.kkl/{user}/')
-    time.sleep(5)
-    
-    # 페이지 스크롤을 통해 모든 게시물 로드
-    last_height = driver.execute_script("return document.body.scrollHeight")
-    posts = set()
-
-    while True:
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        new_posts = soup.select('div._aagw a')
-        for post in new_posts:
-            posts.add('https://www.instagram.com' + post['href'])
-        
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(3)
-        
-        new_height = driver.execute_script("return document.body.scrollHeight")
-        if new_height == last_height:
-            break
-        last_height = new_height
-    
-    return list(posts)
-
-def scrape_post_data(driver, url, n):
-    driver.get(url)
-    time.sleep(3)
-
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
-    
-    # 게시물 이미지 URL 추출
-    try:
-        img_url = soup.select_one('.x5yr21d img')['src']
-    except TypeError:
-        print(f"No image found in {url}")
-        return None
-    
-    # 좋아요 수 추출
-    try:
-        likes = soup.select_one('div._aacl span').text
-    except AttributeError:
-        likes = 'No likes'
-    
-    # print(f"Post {n}: Likes: {likes}\nImage URL: {img_url}\n")
-    
-    # 이미지 저장
-    # save_image(img_url, n)
-    return {'likes': likes, 'img_url': img_url}
-
-
 @getContent.route('/api/getContent', methods=['GET'])
-def getContent():
-    driver = start_driver()
-    
-    try:
-        query = request.args.get('userId')
-        if query:
-            user = query  # 크롤링할 유저명 입력
-            post_urls = scroll_and_collect_posts(driver, user)
-            
-            # print(f"Found {len(post_urls)} posts.")
-            dataSet = set()
-            for n, url in enumerate(post_urls, 1):
-                eachData = scrape_post_data(driver, url, n)
-                dataSet.set(eachData)
-                time.sleep(2)  # 과부하 방지를 위해 대기 시간 추가
-            return list(dataSet)
-    
-    except Exception as e:
-        stop_driver()
-        return jsonify({'status': 'fail', 'message': '', 'error': str(e)}), 500
+def get_content():
+    driver = start_driver()  # 드라이버 시작
+    html = driver.page_source
+    soup = BeautifulSoup(html)
 
-    finally:
+    # 현재 페이지 HTML 정보 가져오기
+    def select_first(driver):
+        insta = soup.select('._ac7v.x1f01sob.xcghwft.xat24cr.xzboxd6')
+        print(insta)
+        # first = soup.find_element(By.CSS_SELECTOR, 'div._ac7v')  # 첫 번째 게시물 클릭
+        # first.click()
+        # time.sleep(5)  # 페이지 로딩 대기
+
+    def fetch_img_url(driver):
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        try: 
+            img = soup.select('div.aagv > img')[0]['src']
+            return img
+            # content = soup.select('div._a9zr')[0].text  # 본문 내용 추출
+        except IndexError: 
+            content = ' '  # 본문 내용이 없을 경우 처리
+        tags = re.findall(r'#[^\s#,\\]+', content)  # 해시태그 추출
+        date = soup.select('time._aaqe')[0]['datetime'][:10]  # 날짜 추출
+        data = [content, date, tags]  # 수집한 데이터
+        return data
+
+    # 본문 내용 가져오기
+    try:
+        select_first(driver)  # 첫 번째 게시물 선택
+        data = fetch_img_url(driver)  # 콘텐츠 수집
+    except Exception as e:
+        print("오류 발생:", str(e))
         stop_driver()
-        # print("Driver closed.")
+        return jsonify({'status': 'fail', 'message': 'Error occurred', 'error': str(e)}), 500
+
+    # 수집한 정보 반환
+    return jsonify({'status': 'success', 'data': data}), 200

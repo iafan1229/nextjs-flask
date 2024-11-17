@@ -1,21 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Login from "./Login";
-import GetContentPage from "../app/getContent/page";
+import { useEffect } from "react";
 
 export default function Pages() {
   const router = useRouter();
-  const [userId, setUserId] = useState(undefined);
 
-  return (
-    <>
-      {!userId ? (
-        <Login userId={userId ?? undefined} setUserId={setUserId} />
-      ) : (
-        <GetContentPage userId={userId ?? undefined} setUserId={setUserId} />
-      )}
-    </>
-  );
+  useEffect(() => {
+    console.log(router);
+    if (router) router.push("/login");
+  }, [router]);
+  return <></>;
 }
