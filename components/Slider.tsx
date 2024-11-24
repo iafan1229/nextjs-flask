@@ -5,7 +5,7 @@ import "swiper/css";
 
 export default function Slider() {
   return (
-    <>
+    <div className='top-list'>
       <Swiper
         slidesPerView={5}
         spaceBetween={30}
@@ -13,16 +13,12 @@ export default function Slider() {
         loop
         className='mySwiper'
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        {[1, 2, 3, 4, 5, 4, 3, 2, 1, 5].map((el) => (
+          <SwiperSlide>
+            <img src={`img/${el}.jpg`} />
+          </SwiperSlide>
+        ))}
       </Swiper>
-    </>
+    </div>
   );
 }

@@ -1,10 +1,12 @@
 "use client";
-import List from "../../Components/List";
+import PhotoList from "../../Components/list/PhotoList";
+import TopList from "../../Components/list/TopList";
 
 export default function Photo() {
   return (
     <>
-      <List />
+      <TopList />
+      <PhotoList />
     </>
   );
 }

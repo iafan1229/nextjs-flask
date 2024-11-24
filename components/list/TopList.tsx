@@ -1,7 +1,7 @@
 import { Select, Space } from "antd";
-import Slider from "./Slider";
+import Slider from "../Slider";
 
-export default function List() {
+export default function TopList() {
   const options = [
     {
       label: "최신등록 순",
@@ -57,8 +57,6 @@ export default function List() {
           <Slider />
         </div>
       </section>
-
-      <section></section>
     </>
   );
 }
