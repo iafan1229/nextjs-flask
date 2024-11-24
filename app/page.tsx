@@ -1,9 +1,5 @@
-import Pages from "../Components/Pages";
+import { redirect } from "next/navigation";
 
 export default function App() {
-  return (
-    <>
-      <Pages />
-    </>
-  );
+  redirect("/photo");
 }

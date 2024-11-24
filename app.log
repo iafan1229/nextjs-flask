@@ -1,4 +1,2 @@
-2024-11-17 14:37:37,192 - werkzeug - WARNING -  * Debugger is active!
-2024-11-17 14:37:37,196 - werkzeug - INFO -  * Debugger PIN: 395-522-955
-2024-11-17 14:37:48,207 - werkzeug - INFO - 127.0.0.1 - - [17/Nov/2024 14:37:48] "POST /api/login HTTP/1.1" 200 -
-2024-11-17 14:38:17,646 - werkzeug - INFO - 127.0.0.1 - - [17/Nov/2024 14:38:17] "[35m[1mGET /api/getContent?userId=daily_9230 HTTP/1.1[0m" 500 -
+2024-11-24 16:34:26,255 - werkzeug - WARNING -  * Debugger is active!
+2024-11-24 16:34:26,259 - werkzeug - INFO -  * Debugger PIN: 395-522-955

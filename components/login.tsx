@@ -35,13 +35,13 @@ const Login = ({
   };
 
   const sendInputData = (data: InputData) => {
-    fetch("http://localhost:3000/api/login", {
+    fetch("/api/v1/search/blog?query=이하영+개발블로그", {
       // API URL을 Flask 서버에 맞게 조정
-      method: "POST",
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "X-Naver-Client-Id": "OAMtf141zpQSdpoWr0Qm",
+        "X-Naver-Client-Secret": "6Vdf3GDwjF",
       },
-      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {

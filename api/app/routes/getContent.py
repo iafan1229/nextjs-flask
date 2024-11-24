@@ -53,7 +53,7 @@ def scrape_post_data(driver, url, n):
     
 
     try:
-        date = soup.select_one('.x1yztbdb time')
+        date = soup.select_one('.x1yztbdb time').text
     except AttributeError:
         date = ''
     
