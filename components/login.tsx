@@ -35,25 +35,25 @@ const Login = ({
   };
 
   const sendInputData = (data: InputData) => {
-    fetch("/api/v1/search/blog?query=이하영+개발블로그", {
+    fetch("/api/login", {
       // API URL을 Flask 서버에 맞게 조정
-      method: "GET",
+      method: "POST",
       headers: {
-        "X-Naver-Client-Id": "OAMtf141zpQSdpoWr0Qm",
-        "X-Naver-Client-Secret": "6Vdf3GDwjF",
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data) {
           setUserId(data?.userId);
+          // router.push(`/getcontent`);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
-
   const handleLogin = () => {
     if (validate()) sendInputData(inputData);
   };
