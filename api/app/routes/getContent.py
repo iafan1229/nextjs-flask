@@ -9,7 +9,8 @@ getContent = Blueprint('getContent', __name__)
 
 def scroll_and_collect_posts(driver, user):
     url = f'/{user}/?next=%2F'
-    driver.get(f'https://www.instagram.com//{user}/')
+    # driver.get(f'https://www.instagram.com/{user}/')
+    driver.get("https://instagram.com/lhy.dev")
     time.sleep(5)
     
     # 페이지 스크롤을 통해 모든 게시물 로드

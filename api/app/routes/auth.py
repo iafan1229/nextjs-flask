@@ -1,4 +1,5 @@
 
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
@@ -46,8 +47,10 @@ def instagramLogin(username, password, driver):
             .perform()
 
         print("로그인 성공! 내비게이션 바가 로드되었습니다.")
-
+        
+    
         loadUserPage(driver, username)
+        
         return jsonify({'status': 'success', 'userId': username}), 200
 
     except Exception as e:
@@ -56,16 +59,14 @@ def instagramLogin(username, password, driver):
     
 def loadUserPage(driver, username):
     try:
-        
+        # driver.get(f"https://instagram.com/{username}")
         url = f'/{username}/?next=%2F'
         # 사진첩으로 이동 버튼 찾기 (동적으로 로드되므로 대기 필요)
         login_button = WebDriverWait(driver, 10).until(
           EC.element_to_be_clickable((By.CSS_SELECTOR, f'a[href="{url}"]')))
         driver.execute_script("arguments[0].click();",login_button)
         login_button.click()
-        print("사진첩으로 이동 성공!")
-
-        
+        print("사진첩으로 이동 성공!") 
 
 
     except Exception as e:

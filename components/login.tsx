@@ -46,8 +46,28 @@ const Login = ({
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          setUserId(data?.userId);
-          // router.push(`/getcontent`);
+          // setUserId(data?.userId);
+          const getContent = async () => {
+            try {
+              const response = await fetch(
+                `/api/getContent?userId=${data?.userId}`,
+                {
+                  // API URL을 Flask 서버에 맞게 조정
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+              const data2 = await response.json();
+              return data2; // Returning the data to use in the useEffect
+            } catch (error) {
+              console.error("Error:", error);
+            }
+          };
+
+          const data3 = getContent();
+          console.log(data3);
         }
       })
       .catch((error) => {
