@@ -1,6 +1,4 @@
-2024-11-26 14:40:43,000 - werkzeug - WARNING -  * Debugger is active!
-2024-11-26 14:40:43,005 - werkzeug - INFO -  * Debugger PIN: 417-010-392
-2024-11-26 14:40:53,409 - werkzeug - INFO - 127.0.0.1 - - [26/Nov/2024 14:40:53] "POST /api/login HTTP/1.1" 200 -
-2024-11-26 14:48:46,934 - werkzeug - INFO - 127.0.0.1 - - [26/Nov/2024 14:48:46] "GET /api/getContent?userId=daily_9230 HTTP/1.1" 200 -
-2024-11-26 14:51:25,800 - werkzeug - INFO - 127.0.0.1 - - [26/Nov/2024 14:51:25] "POST /api/login HTTP/1.1" 200 -
-2024-11-26 14:52:48,682 - werkzeug - INFO - 127.0.0.1 - - [26/Nov/2024 14:52:48] "GET /api/getContent?userId=daily_9230 HTTP/1.1" 200 -
+2024-11-26 18:08:53,251 - werkzeug - WARNING -  * Debugger is active!
+2024-11-26 18:08:53,258 - werkzeug - INFO -  * Debugger PIN: 417-010-392
+2024-11-26 18:14:55,203 - werkzeug - INFO - 127.0.0.1 - - [26/Nov/2024 18:14:55] "[33mGET /api/notification/98d8c3b3-358e-4489-97d2-38f7090bba72?id=98d8c3b3-358e-4489-97d2-38f7090bba72&getCount=99&getMonth=3&pageSize=99&pageIndex=0 HTTP/1.1[0m" 404 -
+2024-11-26 18:14:55,221 - werkzeug - INFO - 127.0.0.1 - - [26/Nov/2024 18:14:55] "[33mGET /api/notification/98d8c3b3-358e-4489-97d2-38f7090bba72?id=98d8c3b3-358e-4489-97d2-38f7090bba72&getCount=99&getMonth=3&pageSize=99&pageIndex=0 HTTP/1.1[0m" 404 -
